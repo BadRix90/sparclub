@@ -1,1 +1,174 @@
-/* You can add global styles to this file, and also import other style files */
+@use './styles/fonts';
+@use './styles/colors';
+@use './styles/mixins';
+
+@use '@angular/material' as mat;
+@include mat.core();
+
+// Define the Material theme
+$sparclub-theme: mat.define-theme((color: (theme-type: light,
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      density: (scale: 0,
+      )));
+
+// Include Material component themes with proper selector wrapping
+html {
+  @include mat.all-component-themes($sparclub-theme);
+}
+
+// Global styles
+html {
+  box-sizing: border-box;
+  font-size: 16px; // Base font size
+
+  @include mixins.mobile {
+    font-size: 14px;
+  }
+
+  @include mixins.tablet {
+    font-size: 15px;
+  }
+
+  @include mixins.desktop {
+    font-size: 16px;
+  }
+
+  @include mixins.large-desktop {
+    font-size: 18px;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: fonts.$font-primary;
+  font-weight: fonts.$font-weight-regular;
+  line-height: 1.6;
+  color: colors.$text-primary;
+  background-color: colors.$background-primary;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Responsive container
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 mixins.$spacing-md;
+
+  @include mixins.mobile {
+    padding: 0 mixins.$spacing-sm;
+  }
+
+  @include mixins.tablet {
+    padding: 0 mixins.$spacing-md;
+  }
+
+  @include mixins.desktop {
+    padding: 0 mixins.$spacing-lg;
+  }
+}
+
+// Common utility classes
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.mt-0 {
+  margin-top: 0;
+}
+
+.mt-1 {
+  margin-top: mixins.$spacing-xs;
+}
+
+.mt-2 {
+  margin-top: mixins.$spacing-sm;
+}
+
+.mt-3 {
+  margin-top: mixins.$spacing-md;
+}
+
+.mt-4 {
+  margin-top: mixins.$spacing-lg;
+}
+
+.mt-5 {
+  margin-top: mixins.$spacing-xl;
+}
+
+.mb-0 {
+  margin-bottom: 0;
+}
+
+.mb-1 {
+  margin-bottom: mixins.$spacing-xs;
+}
+
+.mb-2 {
+  margin-bottom: mixins.$spacing-sm;
+}
+
+.mb-3 {
+  margin-bottom: mixins.$spacing-md;
+}
+
+.mb-4 {
+  margin-bottom: mixins.$spacing-lg;
+}
+
+.mb-5 {
+  margin-bottom: mixins.$spacing-xl;
+}
+
+.p-0 {
+  padding: 0;
+}
+
+.p-1 {
+  padding: mixins.$spacing-xs;
+}
+
+.p-2 {
+  padding: mixins.$spacing-sm;
+}
+
+.p-3 {
+  padding: mixins.$spacing-md;
+}
+
+.p-4 {
+  padding: mixins.$spacing-lg;
+}
+
+.p-5 {
+  padding: mixins.$spacing-xl;
+}
+
+// Hide scrollbar but keep functionality
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

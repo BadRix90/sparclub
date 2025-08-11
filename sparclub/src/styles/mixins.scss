@@ -1,0 +1,299 @@
+// ============================================
+// SPARCLUB KASSENBUCH - MIXINS & UTILITIES
+// Responsive Breakpoints & Helper Functions
+// ============================================
+
+@use './colors';
+@use './fonts';
+@use 'sass:map';
+
+// Breakpoints
+$breakpoints: (
+  'xs': 0px,
+  'sm': 576px,
+  'md': 768px,
+  'lg': 992px,
+  'xl': 1200px,
+  'xxl': 1400px
+);
+
+// Spacing System
+$spacing-xs: 0.25rem;   // 4px
+$spacing-sm: 0.5rem;    // 8px
+$spacing-md: 1rem;      // 16px
+$spacing-lg: 1.5rem;    // 24px
+$spacing-xl: 2rem;      // 32px
+$spacing-xxl: 3rem;     // 48px
+$spacing-xxxl: 4rem;    // 64px
+
+// Media Query Mixins
+@mixin mobile-only {
+  @media (max-width: #{map.get($breakpoints, 'sm') - 1px}) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (min-width: #{map.get($breakpoints, 'xs')}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{map.get($breakpoints, 'md')}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{map.get($breakpoints, 'lg')}) {
+    @content;
+  }
+}
+
+@mixin large-desktop {
+  @media (min-width: #{map.get($breakpoints, 'xl')}) {
+    @content;
+  }
+}
+
+@mixin extra-large-desktop {
+  @media (min-width: #{map.get($breakpoints, 'xxl')}) {
+    @content;
+  }
+}
+
+// Custom breakpoint mixin
+@mixin respond-to($breakpoint) {
+  $value: map.get($breakpoints, $breakpoint);
+  @if $value != null {
+    @media (min-width: $value) {
+      @content;
+    }
+  }
+}
+
+// Typography Mixins
+@mixin font-size-responsive($mobile: 1rem, $tablet: 1.125rem, $desktop: 1.25rem) {
+  font-size: $mobile;
+  
+  @include tablet {
+    font-size: $tablet;
+  }
+  
+  @include desktop {
+    font-size: $desktop;
+  }
+}
+
+@mixin heading-1 {
+  @include font-size-responsive(2rem, 2.5rem, 3rem);
+  font-weight: fonts.$font-weight-bold;
+  line-height: 1.2;
+  margin-bottom: $spacing-lg;
+}
+
+@mixin heading-2 {
+  @include font-size-responsive(1.5rem, 1.875rem, 2.25rem);
+  font-weight: fonts.$font-weight-semibold;
+  line-height: 1.3;
+  margin-bottom: $spacing-md;
+}
+
+@mixin heading-3 {
+  @include font-size-responsive(1.25rem, 1.5rem, 1.875rem);
+  font-weight: fonts.$font-weight-semibold;
+  line-height: 1.4;
+  margin-bottom: $spacing-md;
+}
+
+@mixin heading-4 {
+  @include font-size-responsive(1.125rem, 1.25rem, 1.5rem);
+  font-weight: fonts.$font-weight-medium;
+  line-height: 1.4;
+  margin-bottom: $spacing-sm;
+}
+
+@mixin body-large {
+  @include font-size-responsive(1.125rem, 1.25rem, 1.375rem);
+  font-weight: fonts.$font-weight-regular;
+  line-height: 1.6;
+}
+
+@mixin body-medium {
+  @include font-size-responsive(1rem, 1.125rem, 1.25rem);
+  font-weight: fonts.$font-weight-regular;
+  line-height: 1.6;
+}
+
+@mixin body-small {
+  @include font-size-responsive(0.875rem, 1rem, 1.125rem);
+  font-weight: fonts.$font-weight-regular;
+  line-height: 1.5;
+}
+
+@mixin caption {
+  @include font-size-responsive(0.75rem, 0.875rem, 1rem);
+  font-weight: fonts.$font-weight-regular;
+  line-height: 1.4;
+}
+
+// Layout Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin grid-auto-fit($min-size: 250px, $gap: $spacing-md) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min-size, 1fr));
+  gap: $gap;
+}
+
+// Card Mixins
+@mixin card {
+  background: colors.$card-background;
+  border-radius: 12px;
+  box-shadow: colors.$card-shadow;
+  padding: $spacing-lg;
+  transition: box-shadow 0.3s ease;
+  
+  &:hover {
+    box-shadow: colors.$card-shadow-hover;
+  }
+}
+
+@mixin card-compact {
+  @include card;
+  padding: $spacing-md;
+  border-radius: 8px;
+}
+
+// Button Mixins
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-xs;
+  padding: $spacing-sm $spacing-lg;
+  border: none;
+  border-radius: 8px;
+  font-family: fonts.$font-primary;
+  font-weight: fonts.$font-weight-medium;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 44px; // Accessibility: minimum touch target
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+@mixin button-primary {
+  @include button-base;
+  background: colors.$gradient-primary;
+  color: colors.$button-primary-text;
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(colors.$primary-500, 0.3);
+  }
+}
+
+@mixin button-secondary {
+  @include button-base;
+  background: colors.$gradient-secondary;
+  color: colors.$button-secondary-text;
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(colors.$secondary-500, 0.3);
+  }
+}
+
+@mixin button-outline {
+  @include button-base;
+  background: transparent;
+  color: colors.$button-outline-text;
+  border: 2px solid colors.$button-outline-border;
+  
+  &:hover:not(:disabled) {
+    background: colors.$neutral-50;
+    border-color: colors.$primary-500;
+    color: colors.$primary-500;
+  }
+}
+
+// Animation Mixins
+@mixin fade-in($duration: 0.3s) {
+  animation: fadeIn $duration ease-in-out;
+}
+
+@mixin slide-up($duration: 0.3s) {
+  animation: slideUp $duration ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Shadow Mixins
+@mixin shadow-sm {
+  box-shadow: 0 2px 8px colors.$shadow-light;
+}
+
+@mixin shadow-md {
+  box-shadow: 0 4px 16px colors.$shadow-medium;
+}
+
+@mixin shadow-lg {
+  box-shadow: 0 8px 32px colors.$shadow-dark;
+}
+
+// Focus Mixins
+@mixin focus-visible {
+  &:focus-visible {
+    outline: 2px solid colors.$primary-500;
+    outline-offset: 2px;
+  }
+}
+
+// Truncate Text
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin text-truncate-lines($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
