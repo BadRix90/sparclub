@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { KassenbuchComponent } from './components/kassenbuch/kassenbuch.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [KassenbuchComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
