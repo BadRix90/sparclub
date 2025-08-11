@@ -1,1 +1,179 @@
-<p>main-dashboard works!</p>
+<div class="dashboard-container">
+  
+  <!-- Header Toolbar -->
+  <mat-toolbar class="dashboard-toolbar">
+    <div class="toolbar-content">
+      <div class="toolbar-left">
+        <mat-icon class="logo-icon">account_balance_wallet</mat-icon>
+        <span class="toolbar-title">Sparclub Dashboard</span>
+      </div>
+      
+      <div class="toolbar-right">
+        <span class="user-greeting" *ngIf="currentUser">
+          Willkommen, {{ currentUser.username }}!
+        </span>
+        
+        <button mat-icon-button [matMenuTriggerFor]="userMenu">
+          <mat-icon matBadge="!" matBadgeColor="accent">account_circle</mat-icon>
+        </button>
+        
+        <mat-menu #userMenu="matMenu">
+          <button mat-menu-item (click)="onExportData()">
+            <mat-icon>download</mat-icon>
+            <span>Daten exportieren</span>
+          </button>
+          <button mat-menu-item (click)="onLogout()">
+            <mat-icon>logout</mat-icon>
+            <span>Abmelden</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </mat-toolbar>
+
+  <div class="dashboard-content">
+    
+    <!-- Stats Section -->
+    <section class="stats-section">
+      <div class="stats-grid">
+        <mat-card class="stat-card primary">
+          <mat-card-content>
+            <div class="stat-content">
+              <mat-icon class="stat-icon">group</mat-icon>
+              <div class="stat-info">
+                <h3>Sparer</h3>
+                <p class="stat-number">{{ stats.totalSparer }}</p>
+                <span class="stat-subtitle">{{ stats.aktiveSparer }} aktiv</span>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="stat-card success">
+          <mat-card-content>
+            <div class="stat-content">
+              <mat-icon class="stat-icon">trending_up</mat-icon>
+              <div class="stat-info">
+                <h3>Einzahlungen</h3>
+                <p class="stat-number">{{ stats.totalEinzahlungen }}€</p>
+                <span class="stat-subtitle">Gesamt</span>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="stat-card warning">
+          <mat-card-content>
+            <div class="stat-content">
+              <mat-icon class="stat-icon">trending_down</mat-icon>
+              <div class="stat-info">
+                <h3>Auszahlungen</h3>
+                <p class="stat-number">{{ stats.totalAuszahlungen }}€</p>
+                <span class="stat-subtitle">Gesamt</span>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="stat-card accent">
+          <mat-card-content>
+            <div class="stat-content">
+              <mat-icon class="stat-icon">account_balance</mat-icon>
+              <div class="stat-info">
+                <h3>Guthaben</h3>
+                <p class="stat-number">{{ stats.gesamtGuthaben }}€</p>
+                <span class="stat-subtitle">Aktuell</span>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </section>
+
+    <!-- Actions Section -->
+    <section class="actions-section">
+      <mat-card class="actions-card">
+        <mat-card-header>
+          <mat-card-title>Aktionen</mat-card-title>
+          <mat-card-subtitle>Sparer auswählen und verwalten</mat-card-subtitle>
+        </mat-card-header>
+        
+        <mat-card-content>
+          <div class="actions-content">
+            
+            <!-- Sparer Auswahl -->
+            <div class="sparer-selection">
+              <mat-form-field appearance="outline" class="sparer-select">
+                <mat-label>Sparer auswählen</mat-label>
+                <mat-select [value]="selectedSparer" (selectionChange)="onSparerSelect($event.value)">
+                  <mat-option [value]="null">-- Sparer wählen --</mat-option>
+                  <mat-option *ngFor="let user of allUsers" [value]="user">
+                    {{ getUserDisplayName(user) }}
+                  </mat-option>
+                </mat-select>
+                <mat-icon matSuffix>people</mat-icon>
+              </mat-form-field>
+              
+              <button 
+                mat-raised-button 
+                color="primary"
+                [disabled]="!selectedSparer"
+                (click)="goToSparerDashboard()"
+                class="dashboard-button">
+                <mat-icon>dashboard</mat-icon>
+                Dashboard öffnen
+              </button>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+              <button mat-raised-button color="accent" (click)="onAddSparer()">
+                <mat-icon>person_add</mat-icon>
+                Neuen Sparer anlegen
+              </button>
+              
+              <button mat-raised-button (click)="onAddTransaction()" class="secondary-button">
+                <mat-icon>add_circle</mat-icon>
+                Transaktion hinzufügen
+              </button>
+            </div>
+
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </section>
+
+    <!-- Recent Activities -->
+    <section class="activities-section">
+      <mat-card class="activities-card">
+        <mat-card-header>
+          <mat-card-title>Letzte Aktivitäten</mat-card-title>
+          <mat-card-subtitle>Aktuelle Transaktionen im Überblick</mat-card-subtitle>
+        </mat-card-header>
+        
+        <mat-card-content>
+          <div class="activities-list">
+            <div *ngFor="let activity of recentActivities" class="activity-item">
+              <div class="activity-icon" [class]="activity.type">
+                <mat-icon>{{ activity.type === 'einzahlung' ? 'add_circle' : 'remove_circle' }}</mat-icon>
+              </div>
+              <div class="activity-info">
+                <p class="activity-user">{{ activity.user }}</p>
+                <p class="activity-details">
+                  {{ activity.type === 'einzahlung' ? 'Einzahlung' : 'Auszahlung' }}: 
+                  <span class="activity-amount" [class]="activity.type">
+                    {{ activity.type === 'einzahlung' ? '+' : '-' }}{{ activity.amount }}€
+                  </span>
+                </p>
+              </div>
+              <div class="activity-date">
+                <span>{{ activity.date | date:'short' }}</span>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </section>
+
+  </div>
+</div>

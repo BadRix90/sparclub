@@ -1,0 +1,366 @@
+@use '../../../styles/colors';
+@use '../../../styles/mixins';
+
+.dashboard-container {
+  min-height: 100vh;
+  background: colors.$gradient-background;
+}
+
+// Toolbar
+.dashboard-toolbar {
+  background: colors.$card-background;
+  border-bottom: 1px solid colors.$border-light;
+  @include mixins.shadow-sm;
+  
+  .toolbar-content {
+    @include mixins.flex-between;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 mixins.$spacing-lg;
+  }
+  
+  .toolbar-left {
+    @include mixins.flex-center;
+    gap: mixins.$spacing-md;
+    
+    .logo-icon {
+      color: colors.$primary-500;
+      transform: scale(1.2);
+    }
+    
+    .toolbar-title {
+      @include mixins.heading-3;
+      color: colors.$text-primary;
+      margin: 0;
+    }
+  }
+  
+  .toolbar-right {
+    @include mixins.flex-center;
+    gap: mixins.$spacing-md;
+    
+    .user-greeting {
+      @include mixins.body-medium;
+      color: colors.$text-secondary;
+    }
+  }
+}
+
+// Dashboard Content
+.dashboard-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: mixins.$spacing-xl;
+  
+  @include mixins.mobile-only {
+    padding: mixins.$spacing-lg mixins.$spacing-md;
+  }
+}
+
+// Stats Section
+.stats-section {
+  margin-bottom: mixins.$spacing-xl;
+}
+
+.stats-grid {
+  @include mixins.grid-auto-fit(280px, mixins.$spacing-lg);
+}
+
+.stat-card {
+  @include mixins.card;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+    @include mixins.shadow-lg;
+  }
+  
+  ::ng-deep .mat-mdc-card-content {
+    padding: mixins.$spacing-lg !important;
+  }
+  
+  .stat-content {
+    @include mixins.flex-center;
+    gap: mixins.$spacing-lg;
+  }
+  
+  .stat-icon {
+    font-size: 2.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: mixins.$spacing-md;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .stat-info {
+    flex: 1;
+    
+    h3 {
+      @include mixins.body-small;
+      margin: 0 0 mixins.$spacing-xs 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.8;
+    }
+    
+    .stat-number {
+      @include mixins.heading-2;
+      margin: 0 0 mixins.$spacing-xs 0;
+      font-weight: 700;
+    }
+    
+    .stat-subtitle {
+      @include mixins.caption;
+      opacity: 0.7;
+    }
+  }
+  
+  &.primary {
+    background: colors.$gradient-primary;
+    color: white;
+    
+    .stat-icon {
+      color: white;
+    }
+  }
+  
+  &.success {
+    background: colors.$gradient-success;
+    color: white;
+    
+    .stat-icon {
+      color: white;
+    }
+  }
+  
+  &.warning {
+    background: colors.$gradient-accent;
+    color: white;
+    
+    .stat-icon {
+      color: white;
+    }
+  }
+  
+  &.accent {
+    background: colors.$gradient-secondary;
+    color: white;
+    
+    .stat-icon {
+      color: white;
+    }
+  }
+}
+
+// Actions Section
+.actions-section {
+  margin-bottom: mixins.$spacing-xl;
+}
+
+.actions-card {
+  @include mixins.card;
+  
+  ::ng-deep {
+    .mat-mdc-card-header {
+      padding-bottom: mixins.$spacing-md;
+      border-bottom: 1px solid colors.$border-light;
+      margin-bottom: mixins.$spacing-lg;
+      
+      .mat-mdc-card-title {
+        @include mixins.heading-3;
+        color: colors.$text-primary;
+      }
+      
+      .mat-mdc-card-subtitle {
+        @include mixins.body-medium;
+        color: colors.$text-secondary;
+      }
+    }
+  }
+}
+
+.actions-content {
+  @include mixins.flex-column;
+  gap: mixins.$spacing-xl;
+}
+
+.sparer-selection {
+  @include mixins.flex-center;
+  gap: mixins.$spacing-lg;
+  flex-wrap: wrap;
+  
+  @include mixins.mobile-only {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .sparer-select {
+    min-width: 300px;
+    flex: 1;
+    
+    @include mixins.mobile-only {
+      min-width: 100%;
+    }
+  }
+  
+  .dashboard-button {
+    min-width: 180px;
+    padding: 0.75rem 1.5rem;
+    @include mixins.shadow-sm;
+    
+    &:hover:not(:disabled) {
+      @include mixins.shadow-md;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.action-buttons {
+  @include mixins.flex-center;
+  gap: mixins.$spacing-lg;
+  flex-wrap: wrap;
+  
+  @include mixins.mobile-only {
+    flex-direction: column;
+  }
+  
+  button {
+    padding: 0.75rem 1.5rem;
+    @include mixins.shadow-sm;
+    
+    &:hover {
+      @include mixins.shadow-md;
+      transform: translateY(-2px);
+    }
+    
+    &.secondary-button {
+      background: colors.$neutral-100;
+      color: colors.$text-primary;
+      
+      &:hover {
+        background: colors.$neutral-200;
+      }
+    }
+  }
+}
+
+// Activities Section
+.activities-section {
+  margin-bottom: mixins.$spacing-xl;
+}
+
+.activities-card {
+  @include mixins.card;
+  
+  ::ng-deep {
+    .mat-mdc-card-header {
+      padding-bottom: mixins.$spacing-md;
+      border-bottom: 1px solid colors.$border-light;
+      margin-bottom: mixins.$spacing-lg;
+    }
+  }
+}
+
+.activities-list {
+  @include mixins.flex-column;
+  gap: mixins.$spacing-md;
+}
+
+.activity-item {
+  @include mixins.flex-center;
+  gap: mixins.$spacing-md;
+  padding: mixins.$spacing-md;
+  background: colors.$neutral-50;
+  border-radius: 8px;
+  border-left: 4px solid colors.$primary-500;
+  
+  .activity-icon {
+    @include mixins.flex-center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    
+    &.einzahlung {
+      background: colors.$success-100;
+      color: colors.$success-600;
+    }
+    
+    &.auszahlung {
+      background: colors.$error-100;
+      color: colors.$error-600;
+    }
+    
+    mat-icon {
+      font-size: 1.25rem;
+    }
+  }
+  
+  .activity-info {
+    flex: 1;
+    
+    .activity-user {
+      @include mixins.body-medium;
+      margin: 0 0 mixins.$spacing-xs 0;
+      font-weight: 500;
+      color: colors.$text-primary;
+    }
+    
+    .activity-details {
+      @include mixins.body-small;
+      margin: 0;
+      color: colors.$text-secondary;
+      
+      .activity-amount {
+        font-weight: 600;
+        
+        &.einzahlung {
+          color: colors.$success-600;
+        }
+        
+        &.auszahlung {
+          color: colors.$error-600;
+        }
+      }
+    }
+  }
+  
+  .activity-date {
+    @include mixins.caption;
+    color: colors.$text-tertiary;
+  }
+}
+
+// Form Field Styling
+::ng-deep {
+  .mat-mdc-form-field {
+    .mat-mdc-text-field-wrapper {
+      background: colors.$input-background;
+      border-radius: 8px;
+    }
+    
+    &.mat-focused {
+      .mat-mdc-notched-outline-thick {
+        border-color: colors.$primary-500;
+      }
+    }
+  }
+}
+
+// Responsive Design
+@include mixins.tablet {
+  .dashboard-content {
+    padding: mixins.$spacing-xl;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@include mixins.desktop {
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
