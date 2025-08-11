@@ -1,0 +1,9 @@
+@use '../styles/colors';
+@use '../styles/mixins';
+
+.app-root {
+  min-height: 100vh;
+  background: colors.$gradient-background;
+  
+  @include mixins.fade-in(0.5s);
+}

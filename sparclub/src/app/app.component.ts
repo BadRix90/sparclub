@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { KassenbuchComponent } from './components/kassenbuch/kassenbuch.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [KassenbuchComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'sparclub';
+  title = 'Sparclub Kassenbuch';
 }
