@@ -1,0 +1,132 @@
+<div class="register-container">
+  <div class="register-wrapper">
+    
+    <!-- Header -->
+    <div class="register-header">
+      <button mat-icon-button class="back-button" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <div class="logo">
+        <mat-icon class="logo-icon">account_balance_wallet</mat-icon>
+      </div>
+      <h1 class="register-title">Registrierung</h1>
+      <p class="register-subtitle">Erstellen Sie Ihr Sparclub-Konto</p>
+    </div>
+
+    <!-- Register Form -->
+    <mat-card class="register-card">
+      <mat-card-content>
+        <form #registerForm="ngForm" (ngSubmit)="onRegister()" class="register-form">
+          
+          <!-- Username Field -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Benutzername</mat-label>
+            <input 
+              matInput 
+              [(ngModel)]="username" 
+              name="username"
+              required
+              minlength="3"
+              autocomplete="username"
+              [disabled]="loading">
+            <mat-icon matSuffix>person</mat-icon>
+            <mat-hint>Mindestens 3 Zeichen</mat-hint>
+          </mat-form-field>
+
+          <!-- Email Field -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>E-Mail</mat-label>
+            <input 
+              matInput 
+              type="email"
+              [(ngModel)]="email" 
+              name="email"
+              required
+              autocomplete="email"
+              [disabled]="loading">
+            <mat-icon matSuffix>email</mat-icon>
+          </mat-form-field>
+
+          <!-- Role Selection -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Rolle</mat-label>
+            <mat-select [(ngModel)]="role" name="role" required [disabled]="loading">
+              <mat-option *ngFor="let roleOption of roles" [value]="roleOption.value">
+                {{ roleOption.label }}
+              </mat-option>
+            </mat-select>
+            <mat-icon matSuffix>badge</mat-icon>
+          </mat-form-field>
+
+          <!-- Password Field -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Passwort</mat-label>
+            <input 
+              matInput 
+              type="password" 
+              [(ngModel)]="password" 
+              name="password"
+              required
+              minlength="6"
+              autocomplete="new-password"
+              [disabled]="loading">
+            <mat-icon matSuffix>lock</mat-icon>
+            <mat-hint>Mindestens 6 Zeichen</mat-hint>
+          </mat-form-field>
+
+          <!-- Confirm Password Field -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Passwort bestätigen</mat-label>
+            <input 
+              matInput 
+              type="password" 
+              [(ngModel)]="confirmPassword" 
+              name="confirmPassword"
+              required
+              autocomplete="new-password"
+              [disabled]="loading">
+            <mat-icon matSuffix>lock_outline</mat-icon>
+          </mat-form-field>
+
+          <!-- Register Button -->
+          <button 
+            mat-raised-button 
+            color="primary" 
+            type="submit"
+            class="register-button full-width"
+            [disabled]="loading || !registerForm.valid || password !== confirmPassword">
+            
+            <mat-icon *ngIf="!loading">person_add</mat-icon>
+            <mat-icon *ngIf="loading" class="spinning">hourglass_empty</mat-icon>
+            {{ loading ? 'Registrierung läuft...' : 'Registrieren' }}
+          </button>
+
+          <!-- Login Button -->
+          <button 
+            mat-stroked-button 
+            color="accent"
+            type="button"
+            class="login-button full-width"
+            (click)="goToLogin()"
+            [disabled]="loading">
+            
+            <mat-icon>login</mat-icon>
+            Bereits registriert? Anmelden
+          </button>
+
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Info Box -->
+    <div class="info-box">
+      <h3>Rollen-Erklärung:</h3>
+      <ul>
+        <li><strong>Sparer:</strong> Kann eigene Transaktionen verwalten</li>
+        <li><strong>Kassenwart:</strong> Kann alle Sparer verwalten</li>
+        <li><strong>Administrator:</strong> Vollzugriff auf alle Funktionen</li>
+      </ul>
+    </div>
+
+  </div>
+</div>

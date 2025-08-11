@@ -1,1 +1,88 @@
-<p>login works!</p>
+<div class="login-container">
+  <div class="login-wrapper">
+    
+    <!-- Header -->
+    <div class="login-header">
+      <button mat-icon-button class="back-button" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <div class="logo">
+        <mat-icon class="logo-icon">account_balance_wallet</mat-icon>
+      </div>
+      <h1 class="login-title">Anmeldung</h1>
+      <p class="login-subtitle">Melden Sie sich in Ihr Sparclub-Konto an</p>
+    </div>
+
+    <!-- Login Form -->
+    <mat-card class="login-card">
+      <mat-card-content>
+        <form #loginForm="ngForm" (ngSubmit)="onLogin()" class="login-form">
+          
+          <!-- Username Field -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Benutzername</mat-label>
+            <input 
+              matInput 
+              [(ngModel)]="username" 
+              name="username"
+              required
+              autocomplete="username"
+              [disabled]="loading">
+            <mat-icon matSuffix>person</mat-icon>
+          </mat-form-field>
+
+          <!-- Password Field -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Passwort</mat-label>
+            <input 
+              matInput 
+              type="password" 
+              [(ngModel)]="password" 
+              name="password"
+              required
+              autocomplete="current-password"
+              [disabled]="loading">
+            <mat-icon matSuffix>lock</mat-icon>
+          </mat-form-field>
+
+          <!-- Login Button -->
+          <button 
+            mat-raised-button 
+            color="primary" 
+            type="submit"
+            class="login-button full-width"
+            [disabled]="loading || !loginForm.valid">
+            
+            <mat-icon *ngIf="!loading">login</mat-icon>
+            <mat-icon *ngIf="loading" class="spinning">hourglass_empty</mat-icon>
+            {{ loading ? 'Anmeldung läuft...' : 'Anmelden' }}
+          </button>
+
+          <!-- Register Button -->
+          <button 
+            mat-stroked-button 
+            color="accent"
+            type="button"
+            class="register-button full-width"
+            (click)="goToRegister()"
+            [disabled]="loading">
+            
+            <mat-icon>person_add</mat-icon>
+            Noch kein Konto? Registrieren
+          </button>
+
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Demo Credentials Info -->
+    <div class="demo-info">
+      <h3>Demo Admin-Account:</h3>
+      <ul>
+        <li><strong>admin</strong> / admin123</li>
+      </ul>
+      <p>Oder registrieren Sie sich für einen neuen Account</p>
+    </div>
+
+  </div>
+</div>

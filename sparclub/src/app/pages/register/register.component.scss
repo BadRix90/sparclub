@@ -1,20 +1,20 @@
 @use '../../../styles/colors';
 @use '../../../styles/mixins';
 
-.login-container {
+.register-container {
   min-height: 100vh;
   background: colors.$gradient-background;
   @include mixins.flex-center;
   padding: 2rem;
 }
 
-.login-wrapper {
+.register-wrapper {
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
   position: relative;
 }
 
-.login-header {
+.register-header {
   text-align: center;
   margin-bottom: 2rem;
   position: relative;
@@ -42,19 +42,19 @@
   color: colors.$primary-500;
 }
 
-.login-title {
+.register-title {
   @include mixins.heading-2;
   color: colors.$primary-900;
   margin-bottom: 0.5rem;
 }
 
-.login-subtitle {
+.register-subtitle {
   @include mixins.body-medium;
   color: colors.$text-secondary;
   margin: 0;
 }
 
-.login-card {
+.register-card {
   @include mixins.card;
   padding: 2rem;
   
@@ -63,7 +63,7 @@
   }
 }
 
-.login-form {
+.register-form {
   @include mixins.flex-column;
   gap: mixins.$spacing-lg;
 }
@@ -72,7 +72,7 @@
   width: 100%;
 }
 
-.login-button, .register-button {
+.register-button, .login-button {
   padding: 0.75rem 1.5rem;
   font-size: 1.1rem;
   @include mixins.shadow-sm;
@@ -92,7 +92,7 @@
   }
 }
 
-.register-button {
+.login-button {
   margin-top: mixins.$spacing-sm;
   border: 2px solid colors.$accent-500;
   color: colors.$accent-600;
@@ -103,18 +103,18 @@
   }
 }
 
-.demo-info {
+.info-box {
   margin-top: 2rem;
   padding: 1.5rem;
   background: colors.$background-secondary;
   border-radius: 12px;
   @include mixins.shadow-sm;
-  text-align: center;
 
   h3 {
     @include mixins.heading-4;
     color: colors.$primary-700;
     margin-bottom: 1rem;
+    text-align: center;
   }
 
   ul {
@@ -122,16 +122,16 @@
     padding: 0;
     margin: 0;
     @include mixins.flex-column;
-    gap: mixins.$spacing-xs;
+    gap: mixins.$spacing-sm;
   }
 
   li {
     @include mixins.body-small;
     color: colors.$text-secondary;
     background: colors.$neutral-100;
-    padding: mixins.$spacing-xs mixins.$spacing-sm;
-    border-radius: 6px;
-    font-family: 'Courier New', monospace;
+    padding: mixins.$spacing-sm;
+    border-radius: 8px;
+    border-left: 4px solid colors.$primary-500;
   }
 
   strong {
@@ -163,6 +163,13 @@
     }
   }
 
+  // Password validation styling
+  .mat-mdc-form-field.ng-invalid.ng-touched {
+    .mat-mdc-notched-outline-thick {
+      border-color: colors.$error-500;
+    }
+  }
+
   // Snackbar Styling
   .error-snackbar {
     background: colors.$error-500 !important;
@@ -176,11 +183,11 @@
 }
 
 @include mixins.mobile-only {
-  .login-container {
+  .register-container {
     padding: 1rem;
   }
 
-  .login-card {
+  .register-card {
     padding: 1.5rem;
   }
 
@@ -188,5 +195,9 @@
     font-size: 2.5rem;
     width: 2.5rem;
     height: 2.5rem;
+  }
+
+  .register-wrapper {
+    max-width: 100%;
   }
 }
