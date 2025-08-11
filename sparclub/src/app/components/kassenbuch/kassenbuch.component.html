@@ -1,1 +1,119 @@
-<p>kassenbuch works!</p>
+<!-- Kassenbuch Main Container -->
+<div class="kassenbuch-container">
+
+  <!-- Header Toolbar -->
+  <mat-toolbar class="custom-toolbar">
+    <div class="toolbar-content">
+      <!-- Logo & Title -->
+      <div class="toolbar-brand">
+        <mat-icon class="brand-icon">account_balance_wallet</mat-icon>
+        <h1 class="brand-title">Sparclub Kassenbuch</h1>
+      </div>
+      
+      <!-- Date Selector & Actions -->
+      <div class="toolbar-actions">
+        <!-- Month/Year Selector -->
+        <div class="date-selector">
+          <mat-form-field appearance="outline" class="custom-form-field">
+            <mat-label>Monat</mat-label>
+            <mat-select [value]="selectedMonth" (selectionChange)="onMonthChange($event.value)">
+              <mat-option *ngFor="let monat of monate; let i = index" [value]="i">
+                {{ monat }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline" class="custom-form-field">
+            <mat-label>Jahr</mat-label>
+            <mat-select [value]="selectedYear" (selectionChange)="onYearChange($event.value)">
+              <mat-option [value]="2024">2024</mat-option>
+              <mat-option [value]="2025">2025</mat-option>
+              <mat-option [value]="2026">2026</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button mat-fab 
+                  color="accent"
+                  class="custom-fab"
+                  matTooltip="Daten exportieren"
+                  (click)="onExportData()">
+            <mat-icon>download</mat-icon>
+          </button>
+          
+          <input type="file" 
+                 accept=".json" 
+                 (change)="onImportData($event)" 
+                 #fileInput 
+                 style="display: none;">
+          <button mat-fab 
+                  color="accent"
+                  class="custom-fab"
+                  matTooltip="Daten importieren"
+                  (click)="fileInput.click()">
+            <mat-icon>upload</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-toolbar>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner color="primary"></mat-spinner>
+    <p class="loading-text">Kassenbuch wird geladen...</p>
+  </div>
+
+  <!-- Main Content -->
+  <div *ngIf="!loading" class="main-content">
+    
+    <!-- Placeholder für Dashboard -->
+    <section class="dashboard-section">
+      <mat-card class="custom-card">
+        <mat-card-header>
+          <mat-card-title>Dashboard</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Dashboard Komponente wird hier geladen</p>
+        </mat-card-content>
+      </mat-card>
+    </section>
+
+    <!-- Placeholder für Transaction Form -->
+    <section class="transaction-section">
+      <mat-card class="custom-card">
+        <mat-card-header>
+          <mat-card-title>Neue Transaktion</mat-card-title>
+          <mat-card-subtitle>Ein- oder Auszahlung hinzufügen</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Transaction Form Komponente wird hier geladen</p>
+        </mat-card-content>
+      </mat-card>
+    </section>
+
+    <!-- Placeholder für Sparer Cards -->
+    <section class="sparer-section">
+      <div class="section-header">
+        <h2 class="section-title">
+          Sparer Übersicht - {{ monate[selectedMonth] }} {{ selectedYear }}
+        </h2>
+        <p class="section-subtitle">
+          Aktuelle Guthaben und Transaktionen aller Sparclub-Mitglieder
+        </p>
+      </div>
+      
+      <div class="sparer-grid">
+        <mat-card class="custom-card">
+          <mat-card-content>
+            <p>Sparer Cards werden hier geladen</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </section>
+
+  </div>
+
+</div>
