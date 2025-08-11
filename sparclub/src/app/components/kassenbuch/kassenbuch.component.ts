@@ -1,60 +1,67 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-kassenbuch',
-  imports: [CommonModule, MatButtonModule, MatCardModule, MatIconModule],
-  template: `
-    <div class="container">
-      <h1>Sparclub Kassenbuch</h1>
-      
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title>Übersicht</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>Gesamtguthaben: {{ gesamtguthaben }}€</p>
-          <p>Anzahl Sparer: {{ anzahlSparer }}</p>
-        </mat-card-content>
-      </mat-card>
-
-      <div class="actions">
-        <button mat-raised-button color="primary" (click)="neueEinzahlung()">
-          <mat-icon>add</mat-icon>
-          Einzahlung
-        </button>
-        <button mat-raised-button color="warn" (click)="neueAuszahlung()">
-          <mat-icon>remove</mat-icon>
-          Auszahlung
-        </button>
-      </div>
-    </div>
-  `,
-  styles: [`
-    .container {
-      padding: 20px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .actions {
-      margin-top: 20px;
-      display: flex;
-      gap: 10px;
-    }
-  `]
+  imports: [
+    CommonModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule
+  ],
+  templateUrl: './kassenbuch.component.html',
+  styleUrls: ['./kassenbuch.component.scss']
 })
-export class KassenbuchComponent {
-  gesamtguthaben = 1500;
-  anzahlSparer = 5;
+export class KassenbuchComponent implements OnInit {
+  loading = true;
+  selectedMonth = new Date().getMonth();
+  selectedYear = new Date().getFullYear();
+  
+  monate = [
+    'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
+    'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'
+  ];
 
-  neueEinzahlung() {
-    console.log('Einzahlung clicked');
+  ngOnInit(): void {
+    // Simulate loading
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000);
   }
 
-  neueAuszahlung() {
-    console.log('Auszahlung clicked');
+  onMonthChange(month: number): void {
+    this.selectedMonth = month;
+    console.log('Monat geändert:', this.monate[month]);
+  }
+
+  onYearChange(year: number): void {
+    this.selectedYear = year;
+    console.log('Jahr geändert:', year);
+  }
+
+  onExportData(): void {
+    console.log('Daten exportieren');
+    // TODO: Export functionality
+  }
+
+  onImportData(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      console.log('Datei importieren:', input.files[0].name);
+
+    }
   }
 }
