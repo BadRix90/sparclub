@@ -1,1 +1,66 @@
-<p>home works!</p>
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="logo">
+        <mat-icon class="logo-icon">account_balance_wallet</mat-icon>
+      </div>
+      <h1 class="hero-title">Sparclub Kassenbuch</h1>
+      <p class="hero-subtitle">
+        Verwalten Sie Ihre Sparclub-Mitglieder und Finanzen einfach und übersichtlich
+      </p>
+      
+      <div class="hero-actions">
+        <button mat-raised-button color="primary" class="cta-button" routerLink="/login">
+          <mat-icon>login</mat-icon>
+          Anmelden
+        </button>
+        <button mat-raised-button color="accent" class="cta-button" routerLink="/dashboard">
+          <mat-icon>dashboard</mat-icon>
+          Dashboard
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="features-container">
+      <h2 class="section-title">Funktionen</h2>
+      
+      <div class="features-grid">
+        <mat-card class="feature-card">
+          <mat-card-content>
+            <mat-icon class="feature-icon">group</mat-icon>
+            <h3>Sparer verwalten</h3>
+            <p>Legen Sie neue Sparer an und verwalten Sie alle Mitglieder übersichtlich</p>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="feature-card">
+          <mat-card-content>
+            <mat-icon class="feature-icon">account_balance</mat-icon>
+            <h3>Transaktionen</h3>
+            <p>Erfassen Sie Ein- und Auszahlungen mit automatischer Saldo-Berechnung</p>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="feature-card">
+          <mat-card-content>
+            <mat-icon class="feature-icon">analytics</mat-icon>
+            <h3>Dashboard</h3>
+            <p>Individuelle Dashboards für jeden Sparer mit monatlichen Übersichten</p>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="feature-card">
+          <mat-card-content>
+            <mat-icon class="feature-icon">picture_as_pdf</mat-icon>
+            <h3>PDF Export</h3>
+            <p>Erstellen Sie offizielle Belege und Formblätter zum Abheften</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+</div>

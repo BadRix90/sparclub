@@ -1,0 +1,138 @@
+@use '../../../styles/colors';
+@use '../../../styles/mixins';
+
+.home-container {
+  min-height: 100vh;
+  background: colors.$gradient-background;
+}
+
+.hero {
+  @include mixins.flex-center;
+  min-height: 70vh;
+  padding: 2rem;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 600px;
+}
+
+.logo {
+  margin-bottom: 2rem;
+}
+
+.logo-icon {
+  font-size: 4rem;
+  width: 4rem;
+  height: 4rem;
+  color: colors.$primary-500;
+}
+
+.hero-title {
+  @include mixins.heading-1;
+  color: colors.$primary-900;
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  @include mixins.body-large;
+  color: colors.$text-secondary;
+  margin-bottom: 3rem;
+}
+
+.hero-actions {
+  @include mixins.flex-center;
+  gap: mixins.$spacing-md;
+  flex-wrap: wrap;
+}
+
+.cta-button {
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  min-width: 160px;
+  @include mixins.shadow-sm;
+  transition: all 0.3s ease;
+
+  &:hover {
+    @include mixins.shadow-md;
+    transform: translateY(-2px);
+  }
+}
+
+.features {
+  padding: 4rem 2rem;
+  background: colors.$background-secondary;
+}
+
+.features-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  text-align: center;
+  @include mixins.heading-1;
+  color: colors.$primary-900;
+  margin-bottom: 3rem;
+}
+
+.features-grid {
+  @include mixins.grid-auto-fit(280px, 2rem);
+}
+
+.feature-card {
+  padding: 2rem;
+  text-align: center;
+  border-radius: 16px;
+  @include mixins.card;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-8px);
+    @include mixins.shadow-lg;
+  }
+
+  ::ng-deep .mat-mdc-card-content {
+    padding: 0;
+  }
+}
+
+.feature-icon {
+  font-size: 3rem;
+  width: 3rem;
+  height: 3rem;
+  color: colors.$primary-500;
+  margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+  @include mixins.heading-3;
+  color: colors.$primary-900;
+  margin-bottom: 1rem;
+}
+
+.feature-card p {
+  @include mixins.body-medium;
+  color: colors.$text-secondary;
+  margin: 0;
+}
+
+@include mixins.mobile-only {
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cta-button {
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}
