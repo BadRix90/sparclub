@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthService } from '../../services/auth.service';
+
 @Component({
   selector: 'app-login',
   imports: [
@@ -58,10 +59,6 @@ export class LoginComponent {
         this.loading = false;
       }
     });
-  }
-
-  goToRegister(): void {
-    this.router.navigate(['/register']);
   }
 
   goBack(): void {

@@ -1,32 +1,29 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-
-  { path: 'home',
-    loadComponent: () => import('./pages/home/home.component')
-      .then(m => m.HomeComponent)
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
   },
-
-  { path: 'login',
-    loadComponent: () => import('./pages/login/login.component')
-      .then(m => m.LoginComponent)
+  {
+    path: 'home',
+    loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent)
   },
-
-  { path: 'register',
-    loadComponent: () => import('./pages/register/register.component')
-      .then(m => m.RegisterComponent)
+  {
+    path: 'login',
+    loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent)
   },
-
-  { path: 'dashboard',
-    loadComponent: () => import('./pages/main-dashboard/main-dashboard.component')
-      .then(m => m.MainDashboardComponent)
+  {
+    path: 'dashboard',
+    loadComponent: () => import('./pages/main-dashboard/main-dashboard.component').then(m => m.MainDashboardComponent)
   },
-
-  { path: 'sparer/:id',
-    loadComponent: () => import('./pages/sparer-dashboard/sparer-dashboard.component')
-      .then(m => m.SparerDashboardComponent)
+  {
+    path: 'sparer/:id',
+    loadComponent: () => import('./pages/sparer-dashboard/sparer-dashboard.component').then(m => m.SparerDashboardComponent)
   },
-
-  { path: '**', redirectTo: '/home' } // immer als letztes!
+  {
+    path: '**',
+    redirectTo: '/home'
+  }
 ];

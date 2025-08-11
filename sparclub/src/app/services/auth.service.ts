@@ -20,15 +20,31 @@ export interface AuthResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  // In-Memory Database
+  // Hardcoded Sparclub Users
   private users: User[] = [
     {
       id: '1',
       username: 'admin',
       email: 'admin@sparclub.de',
       password: 'admin123',
-      createdAt: new Date(),
+      createdAt: new Date('2024-01-01'),
       role: 'admin'
+    },
+    {
+      id: '2',
+      username: 'kassenwart',
+      email: 'kassenwart@sparclub.de',
+      password: 'kasse2024',
+      createdAt: new Date('2024-01-01'),
+      role: 'kassenwart'
+    },
+    {
+      id: '3',
+      username: 'stellvertreter',
+      email: 'stellvertreter@sparclub.de',
+      password: 'stell2024',
+      createdAt: new Date('2024-01-01'),
+      role: 'kassenwart'
     }
   ];
 
@@ -45,59 +61,6 @@ export class AuthService {
     return this.currentUserSubject.value !== null;
   }
 
-  // Registrierung
-  register(username: string, email: string, password: string, role: 'admin' | 'kassenwart' | 'user' = 'user'): Observable<AuthResponse> {
-    return new Observable(observer => {
-      // Validierung
-      if (!username || !email || !password) {
-        observer.next({ success: false, message: 'Alle Felder sind erforderlich' });
-        observer.complete();
-        return;
-      }
-
-      if (password.length < 6) {
-        observer.next({ success: false, message: 'Passwort muss mindestens 6 Zeichen haben' });
-        observer.complete();
-        return;
-      }
-
-      // Prüfen ob User bereits existiert
-      if (this.users.some(u => u.username === username)) {
-        observer.next({ success: false, message: 'Benutzername bereits vergeben' });
-        observer.complete();
-        return;
-      }
-
-      if (this.users.some(u => u.email === email)) {
-        observer.next({ success: false, message: 'Email bereits registriert' });
-        observer.complete();
-        return;
-      }
-
-      // User erstellen
-      const newUser: User = {
-        id: Date.now().toString(),
-        username,
-        email,
-        password,
-        createdAt: new Date(),
-        role
-      };
-
-      // In Memory Database speichern
-      this.users.push(newUser);
-
-      // Erfolg
-      const { password: _, ...userWithoutPassword } = newUser;
-      observer.next({ 
-        success: true, 
-        message: 'Registrierung erfolgreich!', 
-        user: userWithoutPassword 
-      });
-      observer.complete();
-    });
-  }
-
   // Anmeldung
   login(username: string, password: string): Observable<AuthResponse> {
     return new Observable(observer => {
@@ -108,7 +71,7 @@ export class AuthService {
         );
 
         if (user) {
-          // Session setzen (in memory)
+          // Session setzen
           this.currentUserSubject.next(user);
           const { password: _, ...userWithoutPassword } = user;
           

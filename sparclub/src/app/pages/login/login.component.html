@@ -58,31 +58,8 @@
             {{ loading ? 'Anmeldung läuft...' : 'Anmelden' }}
           </button>
 
-          <!-- Register Button -->
-          <button 
-            mat-stroked-button 
-            color="accent"
-            type="button"
-            class="register-button full-width"
-            (click)="goToRegister()"
-            [disabled]="loading">
-            
-            <mat-icon>person_add</mat-icon>
-            Noch kein Konto? Registrieren
-          </button>
-
         </form>
       </mat-card-content>
     </mat-card>
-
-    <!-- Demo Credentials Info -->
-    <div class="demo-info">
-      <h3>Demo Admin-Account:</h3>
-      <ul>
-        <li><strong>admin</strong> / admin123</li>
-      </ul>
-      <p>Oder registrieren Sie sich für einen neuen Account</p>
-    </div>
-
   </div>
 </div>
